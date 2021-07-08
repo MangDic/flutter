@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:i_have_indecisiveness/Functions/Sleep.dart';
 import 'package:i_have_indecisiveness/UI/FontList.dart';
 import 'package:i_have_indecisiveness/UI/MainColor.dart';
 import 'package:i_have_indecisiveness/UI/btnStyle.dart';
@@ -46,7 +48,7 @@ class _FindFoodScreen extends State<FindFoodScreen> {
           return AlertDialog(
             title: Center(
               child: Text(
-                "$selectedFood 를 추천해!",
+                "$selectedFood 추천해!",
                 style: textStyles.titleTextStyle,
               ),
             ),
@@ -54,6 +56,7 @@ class _FindFoodScreen extends State<FindFoodScreen> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
+                    waitSecond();
                     Navigator.of(context).pop();
                   },
                   child: Text(
@@ -83,11 +86,15 @@ class _FindFoodScreen extends State<FindFoodScreen> {
           color: MainColor.mainColor,
         ),
       ),
+      backgroundColor: MainColor.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
             _textFieldAndAddBtn(),
+            SizedBox(
+              height: 30,
+            ),
             _foodList(),
             _selectBtn(size),
           ],
@@ -154,18 +161,21 @@ class _FindFoodScreen extends State<FindFoodScreen> {
   }
 
   Widget _buildItemWidget(String foodName) {
-    return ListTile(
-      onTap: () {},
-      trailing: IconButton(
-        icon: Icon(Icons.delete),
-        iconSize: 35,
-        onPressed: () => _deleteFood(foodName),
-      ),
-      title: Text(
-        foodName,
-        style: TextStyle(
-          fontSize: 25,
-          color: Colors.black54,
+    return Card(
+      elevation: 6,
+      child: ListTile(
+        onTap: () {},
+        trailing: IconButton(
+          icon: Icon(Icons.delete),
+          iconSize: 30,
+          onPressed: () => _deleteFood(foodName),
+        ),
+        title: Text(
+          foodName,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.black54,
+          ),
         ),
       ),
     );
